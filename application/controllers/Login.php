@@ -54,4 +54,16 @@ class Login extends CI_Controller
         $this->session->set_flashdata('pesan', 'Anda berhasil Logout');
         redirect('login');
     }
+
+    public function cekUser($user)
+    {
+        $this->db->where('username', $user);
+        $query = $this->db->get('user');
+        if ($query->num_rows() > 0) {
+            $this->form_validation->set_message('cekUser', '%s sudah digunakan');
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+    }
 }
